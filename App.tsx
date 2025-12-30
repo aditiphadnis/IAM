@@ -18,6 +18,7 @@ import ActivityLogView from './components/ActivityLogView';
 import UserOnboardingView from './components/UserOnboardingView';
 import WorkflowOnboardingView from './components/WorkflowOnboardingView';
 import TenantOnboardingView from './components/TenantOnboardingView';
+import CredentialOnboardingView from './components/CredentialOnboardingView';
 import { ONBOARDING_CARDS } from './constants';
 import { OnboardingType } from './types';
 
@@ -60,7 +61,7 @@ const App: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="max-w-xl">
           <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Enterprise Onboarding</h2>
-          <p className="mt-2 text-slate-500 text-lg leading-relaxed">
+          <p className="mt-2 text-slate-500 text-lg leading-relaxed font-medium">
             Streamline your organizational setup. Rapidly provision tenants, manage high-performance teams, and automate infrastructure.
           </p>
         </div>
@@ -87,8 +88,8 @@ const App: React.FC = () => {
               {card.icon}
             </div>
             <h3 className="font-bold text-slate-900 text-lg mb-2">{card.title}</h3>
-            <p className="text-sm text-slate-500 leading-relaxed mb-6">{card.description}</p>
-            <div className="mt-auto flex items-center text-indigo-600 font-semibold text-sm">
+            <p className="text-sm text-slate-500 leading-relaxed mb-6 font-medium">{card.description}</p>
+            <div className="mt-auto flex items-center text-indigo-600 font-bold text-sm">
               Get Started
               <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -109,11 +110,7 @@ const App: React.FC = () => {
       case 'users':
         return <UserOnboardingView />;
       case 'credentials':
-        return <PlaceholderView 
-          title="Credential Vault" 
-          icon={<Vault size={40} />} 
-          description="Securely manage API keys, encryption secrets, and environment-specific credentials." 
-        />;
+        return <CredentialOnboardingView />;
       case 'settings':
         return <PlaceholderView 
           title="Global Settings" 
@@ -157,7 +154,7 @@ const App: React.FC = () => {
             ) : (
               <button 
                 onClick={() => setActiveNav('dashboard')}
-                className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-semibold transition-colors group"
+                className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-bold transition-colors group"
               >
                 <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
                 Back to Dashboard
@@ -166,7 +163,7 @@ const App: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-lg">
+            <div className="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-lg">
               <ShieldCheck size={14} className="text-emerald-500" />
               Root Access Secured
             </div>
