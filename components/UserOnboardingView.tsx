@@ -132,6 +132,17 @@ const INITIAL_ROLES: RoleDetails[] = [
     vaultAccess: true,
     isNeos: true,
     policy: 'SuperAdmin_Global_Policy'
+  },
+  {
+    id: 'r4',
+    name: 'LHC Neos User',
+    description: 'Specialized role for LHC NEOS users with integrated automation and notification capabilities.',
+    tenants: ['LHC'],
+    workflows: ['O2I', 'Notifications'],
+    dashboards: ['Overview Dashboard', 'O2I Dashboard'],
+    vaultAccess: false,
+    isNeos: true,
+    policy: 'LHC_O2I_Standard_Policy'
   }
 ];
 

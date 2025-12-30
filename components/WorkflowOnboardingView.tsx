@@ -29,7 +29,8 @@ import {
   Calendar,
   Hash,
   Activity,
-  ToggleLeft
+  ToggleLeft,
+  Pencil
 } from 'lucide-react';
 import { BASE_TENANTS, WORKFLOW_SKUS } from '../constants_data';
 
@@ -84,6 +85,7 @@ const WorkflowOnboardingView: React.FC = () => {
   // Manual Creation State
   const [newWfName, setNewWfName] = useState('');
   const [newWfType, setNewWfType] = useState(WORKFLOW_SKUS[0]);
+  const [customWfType, setCustomWfType] = useState('');
   const [newWfTenant, setNewWfTenant] = useState('');
   const [newWfEnv, setNewWfEnv] = useState<'QA' | 'Prod'>('QA');
   const [newFields, setNewFields] = useState<ConfigField[]>([{ id: '1', name: '', type: 'text' }]);
@@ -132,10 +134,11 @@ const WorkflowOnboardingView: React.FC = () => {
   const handleManualCreate = () => {
     setIsProcessing(true);
     setTimeout(() => {
+      const finalType = newWfType === 'Others' ? customWfType || 'OTHER' : newWfType;
       const newWf: WorkflowInstance = {
         id: `w-${Date.now()}`,
         name: newWfName,
-        type: newWfType,
+        type: finalType,
         tenant: newWfTenant,
         env: newWfEnv,
         lastUpdated: 'Just now',
@@ -164,6 +167,7 @@ const WorkflowOnboardingView: React.FC = () => {
   const resetCreateForm = () => {
     setNewWfName('');
     setNewWfType(WORKFLOW_SKUS[0]);
+    setCustomWfType('');
     setNewWfTenant('');
     setNewWfEnv('QA');
     setNewFields([{ id: '1', name: '', type: 'text' }]);
@@ -292,15 +296,33 @@ const WorkflowOnboardingView: React.FC = () => {
 
             <div className="space-y-1.5">
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest">Workflow Type (SKU)</label>
-              <div className="relative">
-                <select 
-                  value={newWfType}
-                  onChange={(e) => setNewWfType(e.target.value)}
-                  className="w-full px-5 py-3.5 bg-slate-50 border-2 border-slate-100 rounded-xl appearance-none font-bold text-slate-800 outline-none focus:border-blue-400 transition-all cursor-pointer"
-                >
-                  {WORKFLOW_SKUS.map(sku => <option key={sku} value={sku}>{sku}</option>)}
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={18} />
+              <div className="space-y-3">
+                <div className="relative">
+                  <select 
+                    value={newWfType}
+                    onChange={(e) => setNewWfType(e.target.value)}
+                    className="w-full px-5 py-3.5 bg-slate-50 border-2 border-slate-100 rounded-xl appearance-none font-bold text-slate-800 outline-none focus:border-blue-400 transition-all cursor-pointer"
+                  >
+                    {WORKFLOW_SKUS.map(sku => <option key={sku} value={sku}>{sku}</option>)}
+                    <option value="Others">Others</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={18} />
+                </div>
+                
+                {newWfType === 'Others' && (
+                  <div className="animate-in slide-in-from-top-2 duration-300">
+                    <div className="relative">
+                      <input 
+                        type="text" 
+                        value={customWfType}
+                        onChange={(e) => setCustomWfType(e.target.value)}
+                        placeholder="Type new workflow SKU..."
+                        className="w-full pl-12 pr-5 py-3.5 bg-slate-50 border-2 border-blue-100 rounded-xl font-bold text-slate-800 outline-none focus:border-blue-400 transition-all"
+                      />
+                      <Pencil className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-400" size={16} />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -354,7 +376,7 @@ const WorkflowOnboardingView: React.FC = () => {
               {newFields.map((field, idx) => (
                 <div key={field.id} className="flex items-center gap-3 p-4 bg-slate-50 border border-slate-100 rounded-2xl animate-in slide-in-from-right-4 duration-300" style={{ animationDelay: `${idx * 50}ms` }}>
                   <div className="flex-1 space-y-1">
-                    <label className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">Field Name (Caps)</label>
+                    <label className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">Field Name (ALL CAPS)</label>
                     <input 
                       type="text" 
                       value={field.name}
@@ -392,7 +414,7 @@ const WorkflowOnboardingView: React.FC = () => {
             <div className="mt-8 pt-6 border-t border-slate-100 flex justify-end">
               <button 
                 onClick={handleManualCreate}
-                disabled={!newWfName || !newWfTenant || isProcessing}
+                disabled={!newWfName || !newWfTenant || (newWfType === 'Others' && !customWfType) || isProcessing}
                 className="px-12 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-indigo-100 hover:bg-indigo-700 active:scale-95 disabled:opacity-50 transition-all flex items-center gap-3"
               >
                 {isProcessing ? <Loader2 className="animate-spin" size={20} /> : <Check size={20} />}
@@ -559,7 +581,7 @@ const WorkflowOnboardingView: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-amber-900">Config Promotion Warning</p>
-                  <p className="text-xs text-amber-700 leading-relaxed mt-0.5">Moving configuration from QA to Prod requires manual verification of credentials and endpoints. Review the summary before deployment.</p>
+                  <p className="text-xs text-amber-700 leading-relaxed mt-0.5">Moving configuration from QA to Prod requires manual verification of credentials and endpoints. Review the summary before onboarding.</p>
                 </div>
               </div>
             )}

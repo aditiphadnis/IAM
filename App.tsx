@@ -39,14 +39,14 @@ const App: React.FC = () => {
 
   const handleOnboardingClick = (type: OnboardingType) => {
     switch(type) {
-      case OnboardingType.USER:
-        setActiveNav('users');
+      case OnboardingType.TENANT:
+        setActiveNav('tenants');
         break;
       case OnboardingType.WORKFLOW:
         setActiveNav('workflows');
         break;
-      case OnboardingType.TENANT:
-        setActiveNav('tenants');
+      case OnboardingType.USER:
+        setActiveNav('users');
         break;
       case OnboardingType.RESOURCE:
         setActiveNav('credentials');
@@ -101,21 +101,21 @@ const App: React.FC = () => {
     switch (activeNav) {
       case 'dashboard':
         return dashboardTab === 'onboarding' ? <OnboardingGrid /> : <ActivityLogView />;
-      case 'users':
-        return <UserOnboardingView />;
-      case 'workflows':
-        return <WorkflowOnboardingView />;
-      case 'credentials':
-        return <PlaceholderView 
-          title="Credential Vault" 
-          icon={<Vault size={40} />} 
-          description="Securely manage API keys, encryption secrets, and environment-specific credentials." 
-        />;
       case 'tenants':
         return <PlaceholderView 
           title="Tenant Orchestration" 
           icon={<Building2 size={40} />} 
           description="Provision isolated organizational units, configure regional settings, and manage billing accounts." 
+        />;
+      case 'workflows':
+        return <WorkflowOnboardingView />;
+      case 'users':
+        return <UserOnboardingView />;
+      case 'credentials':
+        return <PlaceholderView 
+          title="Credential Vault" 
+          icon={<Vault size={40} />} 
+          description="Securely manage API keys, encryption secrets, and environment-specific credentials." 
         />;
       case 'settings':
         return <PlaceholderView 
