@@ -17,6 +17,7 @@ import Sidebar from './components/Sidebar';
 import ActivityLogView from './components/ActivityLogView';
 import UserOnboardingView from './components/UserOnboardingView';
 import WorkflowOnboardingView from './components/WorkflowOnboardingView';
+import TenantOnboardingView from './components/TenantOnboardingView';
 import { ONBOARDING_CARDS } from './constants';
 import { OnboardingType } from './types';
 
@@ -102,11 +103,7 @@ const App: React.FC = () => {
       case 'dashboard':
         return dashboardTab === 'onboarding' ? <OnboardingGrid /> : <ActivityLogView />;
       case 'tenants':
-        return <PlaceholderView 
-          title="Tenant Orchestration" 
-          icon={<Building2 size={40} />} 
-          description="Provision isolated organizational units, configure regional settings, and manage billing accounts." 
-        />;
+        return <TenantOnboardingView />;
       case 'workflows':
         return <WorkflowOnboardingView />;
       case 'users':
