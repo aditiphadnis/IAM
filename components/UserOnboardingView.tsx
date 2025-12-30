@@ -700,7 +700,7 @@ const UserOnboardingView: React.FC = () => {
         <div className="lg:col-span-4 bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden h-fit">
           <div className="p-8 border-b border-slate-100 bg-slate-50/50"><h3 className="font-bold text-slate-900 flex items-center gap-2"><Mail size={18} className="text-indigo-600" /> Pending Users</h3></div>
           <div className="p-8 space-y-4">{parsedEmails.map((e, i) => <div key={i} className="flex items-center gap-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-xs"><div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-[10px] font-bold text-slate-400 border border-slate-100">{i+1}</div><span className="text-xs font-bold text-slate-700 truncate">{e}</span></div>)}</div>
-          <div className="p-8 bg-slate-50/50 border-t border-slate-100"><button onClick={handleConfirmOnboarding} disabled={isDeploying} className="w-full flex items-center justify-center gap-3 py-4.5 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl active:scale-95 disabled:opacity-50 hover:bg-indigo-700 transition-all">{isDeploying ? <Loader2 className="animate-spin" size={20} /> : <><Send size={18} /> Deploy Access</>}</button></div>
+          <div className="p-8 bg-slate-50/50 border-t border-slate-100"><button onClick={handleConfirmOnboarding} disabled={isDeploying} className="w-full flex items-center justify-center gap-3 py-4.5 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl active:scale-95 disabled:opacity-50 hover:bg-indigo-700 transition-all">{isDeploying ? <Loader2 className="animate-spin" size={20} /> : <><Check size={18} /> Confirm and Onboard</>}</button></div>
         </div>
       </div>
     </div>

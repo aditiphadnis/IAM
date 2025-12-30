@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   PlusCircle, 
@@ -17,6 +16,7 @@ import {
 import Sidebar from './components/Sidebar';
 import ActivityLogView from './components/ActivityLogView';
 import UserOnboardingView from './components/UserOnboardingView';
+import WorkflowOnboardingView from './components/WorkflowOnboardingView';
 import { ONBOARDING_CARDS } from './constants';
 import { OnboardingType } from './types';
 
@@ -104,11 +104,7 @@ const App: React.FC = () => {
       case 'users':
         return <UserOnboardingView />;
       case 'workflows':
-        return <PlaceholderView 
-          title="Workflow Management" 
-          icon={<GitBranch size={40} />} 
-          description="Design, deploy, and monitor complex enterprise automation workflows with AI-assisted logic." 
-        />;
+        return <WorkflowOnboardingView />;
       case 'credentials':
         return <PlaceholderView 
           title="Credential Vault" 

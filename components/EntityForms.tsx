@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { OnboardingType } from '../types';
 import { X, Check, Loader2, User, Mail, Shield, Globe, TestTube, Zap, Building } from 'lucide-react';
@@ -214,7 +213,7 @@ export const EntityForm: React.FC<FormProps> = ({ type, onClose, onSubmit }) => 
             } disabled:opacity-50 active:scale-95`}
           >
             {loading ? <Loader2 className="animate-spin" size={18} /> : <Check size={18} />}
-            {loading ? 'Deploying...' : `Confirm Deployment`}
+            {loading ? 'Onboarding...' : `Confirm Onboarding`}
           </button>
         </div>
       </div>
